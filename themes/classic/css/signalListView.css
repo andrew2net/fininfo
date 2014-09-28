@@ -1,0 +1,9 @@
+#signal-block{
+  float: right;
+  padding: 20px 15px;
+  background: #B06E54;
+  width: 200px;
+}
+#signalListView .items{
+  padding: 5px;
+}

@@ -1,0 +1,179 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  /*color: #555;*/
+  font: normal 10pt Arial,Helvetica,sans-serif;
+  background: #656565;
+}
+
+.orange, #mainmenu ul li.active a, .menu li.active a, div.breadcrumbs span{
+  color: #fa6126;
+}
+.beige, body, div.breadcrumbs a{
+  color: oldlace;
+}
+
+#page
+{
+  margin: 5px auto;
+  max-width: 1400px;
+  min-width: 700px;
+}
+
+#page > div{
+  margin: 0 20px;
+}
+
+#header
+{
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid oldlace;
+}
+
+#content
+{
+}
+#content > div{
+  display: inline-block;
+  vertical-align: top;
+}
+
+#footer
+{
+  padding: 10px;
+  font-size: 0.8em;
+  border-top: 1px solid oldlace;
+}
+
+#logo
+{
+  padding: 10px 20px 10px 0;
+  font-size: 400%;
+  display: table;
+}
+#logo img{
+  padding-right: 20px;
+}
+#logo > div{
+  display: table-cell;
+  vertical-align: top;
+  width: 500px;
+}
+
+#mainmenu
+{
+  float: right;
+}
+
+#mainmenu ul
+{
+  padding:6px 20px 5px 20px;
+  margin:0px;
+}
+
+#mainmenu ul li, .menu li
+{
+  display: inline;
+}
+
+#mainmenu ul li a, .menu li a
+{
+  color:oldlace;
+  background-color:transparent;
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:none;
+  padding:5px 8px;
+}
+
+#mainmenu ul li a:hover, .menu li a:hover
+{
+  background-color:oldlace;
+  color: #656565;
+  text-decoration:none;
+}
+.menu{
+  padding: 0;
+}
+
+div.flash-error, div.flash-notice, div.flash-success
+{
+  padding:.8em;
+  margin-bottom:1em;
+  border:2px solid #ddd;
+}
+
+div.flash-error
+{
+  background:#FBE3E4;
+  color:#8a1f11;
+  border-color:#FBC2C4;
+}
+
+div.flash-notice
+{
+  background:#FFF6BF;
+  color:#514721;
+  border-color:#FFD324;
+}
+
+div.flash-success
+{
+  background:#E6EFC2;
+  color:#264409;
+  border-color:#C6D880;
+}
+
+div.flash-error a
+{
+  color:#8a1f11;
+}
+
+div.flash-notice a
+{
+  color:#514721;
+}
+
+div.flash-success a
+{
+  color:#264409;
+}
+
+div.form .rememberMe label
+{
+  display: inline;
+}
+
+div.view
+{
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #C9E0ED;
+}
+
+div.breadcrumbs
+{
+  font-size: 0.9em;
+  padding: 5px 10px;
+}
+
+div.breadcrumbs a{
+  text-decoration: none;
+}
+
+div.breadcrumbs span, div.breadcrumbs a
+{
+  font-weight: bold;
+}
+
+div.search-form
+{
+  padding: 10px;
+  margin: 10px 0;
+  background: #eee;
+}
+.bold{
+  font-weight: bold;
+}
