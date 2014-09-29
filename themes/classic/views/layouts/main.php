@@ -29,7 +29,10 @@
             $pages = Page::model()->findAll(array('condition' => 'menu_show>0 AND url<>"/"', 'order' => 'menu_show'));
             $currentUrl = isset($_GET['url']) ? $_GET['url'] : '';
             foreach ($pages as $page) {
-              $items[] = array('label' => $page->title, 'url' => $page->url, 'active' => $page->url == $currentUrl);
+              $items[] = array(
+                'label' => $page->title,
+                'url' => Yii::app()->createUrl('site/page', array('url' => $page->url)),
+                'active' => $page->url == $currentUrl);
             }
 
             $this->widget('zii.widgets.CMenu', array(

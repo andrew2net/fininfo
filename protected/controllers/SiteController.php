@@ -96,7 +96,8 @@ class SiteController extends Controller {
     $this->redirect(Yii::app()->homeUrl);
   }
 
-  public function actionPage($url) {
+  public function actionPage() {
+    $url = $_GET['url'];
     $model = Page::model()->findByAttributes(array('url' => $url));
     if (!$model)
       throw new CHttpException(404, "Страница {$url} не найдена");
