@@ -69,7 +69,7 @@
             'label' => 'Права',
             'url' => '/admin/auth',
             'active' => $this->module instanceof AuthModule,
-            'visible' => Yii::app()->user->checkAccess('auth.assignment.*')
+            'visible' => Yii::app()->user->checkAccess('auth.*')
           ),
           array(
             'label' => 'Выход',
