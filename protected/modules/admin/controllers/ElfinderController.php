@@ -3,7 +3,7 @@
 class ElfinderController extends CController {
 
   public function filters() {
-    return array(array('auth.filters.AuthFilter'));
+    return array(array('application.modules.admin.modules.auth.filters.AuthFilter'));
   }
 
   public function actions() {
