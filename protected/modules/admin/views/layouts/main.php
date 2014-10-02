@@ -29,24 +29,28 @@
           array('label' => 'Сигналы',
             'url' => '/admin/signal',
             'active' => $this instanceof SignalController,
-            'visible' => Yii::app()->user->checkAccess('admin.signal.*')
+            'visible' => Yii::app()->user->checkAccess('admin.signal.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
           ),
           array(
             'label' => 'Виды подписок',
             'url' => '/admin/subscriptionType',
             'active' => $this instanceof SubscriptionTypeController,
-            'visible' => Yii::app()->user->checkAccess('admin.subscriptionType.*')
+            'visible' => Yii::app()->user->checkAccess('admin.subscriptionType.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
           ),
           array('label' => 'Новости',
             'url' => '/admin/news',
             'active' => $this instanceof NewsController,
-            'visible' => Yii::app()->user->checkAccess('news.*')
+            'visible' => Yii::app()->user->checkAccess('admin.news.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
           ),
           array(
             'label' => 'Страницы',
             'url' => '/admin/page',
             'active' => $this instanceof PageController,
-            'visible' => Yii::app()->user->checkAccess('admin.page.*')
+            'visible' => Yii::app()->user->checkAccess('admin.page.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
           ),
 //          array('label' => 'Доставка',
 //            'url' => '/admin/delivery',
