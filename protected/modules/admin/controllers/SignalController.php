@@ -13,42 +13,42 @@ class SignalController extends Controller {
   }
 
   public function actionPostsignal() {
-    if (!(isset($_GET['portid']) || isset($_GET['symid']) || isset($_GET['recom']) ||
-        isset($_GET['sigdate']) || isset($_GET['price']))) {
+    if (!(isset($_POST['portid']) || isset($_POST['symid']) || isset($_POST['recom']) ||
+        isset($_POST['sigdate']) || isset($_POST['price']))) {
       echo 'Not enough options.';
       Yii::app()->end();
     }
 
     $subscriptionType = SubscriptionType::model()->findByAttributes(array(
-      'portid' => $_GET['portid'],
-      'symid' => $_GET['symid'],
+      'portid' => $_POST['portid'],
+      'symid' => $_POST['symid'],
     ));
     if (is_null($subscriptionType)) {
       echo 'Invalid options.';
       Yii::app()->end();
     }
 
-    $sigdate = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $_GET['sigdate']);
+    $sigdate = Yii::app()->dateFormatter->format('yyyy-MM-dd HH:mm:ss', $_POST['sigdate']);
     $signal = Signal::model()->findByAttributes(array('sigdate' => $sigdate));
     if ($signal) {
-      if ($signal->price == $_GET['price']) {
+      if ($signal->price == $_POST['price']) {
         echo 'The signal alredy passed.';
         Yii::app()->end();
       }
-      else {
-        $signal = new Signal;
-        $signal->subscription_type_id = $subscriptionType->id;
-        $signal->recom = $_GET['recom'];
-        $signal->sigdate = $sigdate;
-      }
+    }
+    else {
+      $signal = new Signal;
+      $signal->subscription_type_id = $subscriptionType->id;
+      $signal->recom = $_POST['recom'];
+      $signal->sigdate = $sigdate;
     }
 
-    $signal->price = $_GET['price'];
+    $signal->price = $_POST['price'];
 
     if ($signal->save())
       echo 'Ok';
     else
-      echo 'Signal wite error';
+      echo 'Signal write error';
 
     Yii::app()->end();
   }
