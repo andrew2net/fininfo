@@ -104,8 +104,8 @@ class Signal extends CActiveRecord
             'desc' => 'subscriptionType.portid DESC, subscriptionType.symid DESC',
           ),
           '*',
-        )
-      )
+        ),
+      ),
 		));
 	}
 

@@ -32,6 +32,12 @@
             'visible' => Yii::app()->user->checkAccess('admin.signal.*') ||
             Yii::app()->user->checkAccess('admin.*'),
           ),
+          array('label' => 'Результаты торгов',
+            'url' => '/admin/tradeData',
+            'active' => $this instanceof TradeDataController,
+            'visible' => Yii::app()->user->checkAccess('admin.tradeData.*') ||
+            Yii::app()->user->checkAccess('admin.*')
+          ),
           array(
             'label' => 'Виды подписок',
             'url' => '/admin/subscriptionType',
@@ -52,13 +58,6 @@
             'visible' => Yii::app()->user->checkAccess('admin.page.*') ||
             Yii::app()->user->checkAccess('admin.*'),
           ),
-//          array('label' => 'Доставка',
-//            'url' => '/admin/delivery',
-//            'active' => $this->module instanceof DeliveryModule,
-//            'visible' => Yii::app()->user->checkAccess('delivery.*') ||
-//            Yii::app()->user->checkAccess('delivery.delivery.*') ||
-//            Yii::app()->user->checkAccess('delivery.region.*')
-//          ),
           array(
             'label' => 'Пользователи',
             'url' => '/admin/user/admin',
