@@ -15,6 +15,7 @@
             Yii::getPathOfAlias('admin.assets.css') . '/login.css'
         )
     );
+    $this->module->bootstrap->register();
     ?>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>

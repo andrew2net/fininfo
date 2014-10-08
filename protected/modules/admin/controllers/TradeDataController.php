@@ -8,7 +8,7 @@ class TradeDataController extends Controller {
   public function filters() {
     return array(
       array('auth.filters.AuthFilter - postdata'), // perform access control for CRUD operations
-      'postOnly + delete', // we only allow deletion via POST request
+//      'postOnly + delete', // we only allow deletion via POST request
     );
   }
 

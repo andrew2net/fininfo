@@ -98,6 +98,46 @@ body
   padding: 0;
 }
 
+#right-column{
+  float: right;
+  width: 205px;
+}
+
+#signal-block, #registr-block{
+  background: #B06E54;
+  padding: 20px 15px;
+}
+
+#registr-dialog{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: rgba(100, 100, 100, 0.6);
+}
+
+#registr-dialog > div{
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  width: 340px;
+  height: 300px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 20px 0;
+  background: #8C5B48;
+}
+
+#registr-form > div{
+  margin: 5px;
+}
+
 div.flash-error, div.flash-notice, div.flash-success
 {
   padding:.8em;
@@ -177,3 +217,29 @@ div.search-form
 .bold{
   font-weight: bold;
 }
+
+.button{
+/*  display: block;
+  text-decoration: none;*/
+  padding: 5px;
+  margin: 5px;
+  background: #CB5C31;
+  cursor: pointer;
+  border: none; 
+  color: oldlace;
+}
+.button:hover{
+  background: #FA6126;
+  color: white;
+}
+.button:active{
+  background: #C2552C;
+}
+
+.errorMessage{
+  color: yellow;
+}
+/*input.error{
+  border: 1px solid red;
+  border-radius: 4px;
+}*/
