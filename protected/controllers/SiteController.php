@@ -12,11 +12,11 @@ class SiteController extends Controller {
         'class' => 'CCaptchaAction',
         'backColor' => 0xFFFFFF,
       ),
-      // page action renders "static" pages stored under 'protected/views/site/pages'
-      // They can be accessed via: index.php?r=site/page&view=FileName
-      'page' => array(
-        'class' => 'CViewAction',
-      ),
+        // page action renders "static" pages stored under 'protected/views/site/pages'
+        // They can be accessed via: index.php?r=site/page&view=FileName
+//      'page' => array(
+//        'class' => 'CViewAction',
+//      ),
     );
   }
 
@@ -45,25 +45,25 @@ class SiteController extends Controller {
   /**
    * Displays the contact page
    */
-  public function actionContact() {
-    $model = new ContactForm;
-    if (isset($_POST['ContactForm'])) {
-      $model->attributes = $_POST['ContactForm'];
-      if ($model->validate()) {
-        $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
-        $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
-        $headers = "From: $name <{$model->email}>\r\n" .
-            "Reply-To: {$model->email}\r\n" .
-            "MIME-Version: 1.0\r\n" .
-            "Content-Type: text/plain; charset=UTF-8";
-
-        mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
-        Yii::app()->user->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
-        $this->refresh();
-      }
-    }
-    $this->render('contact', array('model' => $model));
-  }
+//  public function actionContact() {
+//    $model = new ContactForm;
+//    if (isset($_POST['ContactForm'])) {
+//      $model->attributes = $_POST['ContactForm'];
+//      if ($model->validate()) {
+//        $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
+//        $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
+//        $headers = "From: $name <{$model->email}>\r\n" .
+//            "Reply-To: {$model->email}\r\n" .
+//            "MIME-Version: 1.0\r\n" .
+//            "Content-Type: text/plain; charset=UTF-8";
+//
+//        mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
+//        Yii::app()->user->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
+//        $this->refresh();
+//      }
+//    }
+//    $this->render('contact', array('model' => $model));
+//  }
 
   /**
    * Displays the login page
@@ -97,7 +97,11 @@ class SiteController extends Controller {
   }
 
   public function actionPage() {
-    $url = $_GET['url'];
+    if (isset($_GET['url']))
+      $url = $_GET['url'];
+    else
+      throw new CHttpException(404, "Страница не найдена");
+      
     $model = Page::model()->findByAttributes(array('url' => $url));
     if (!$model)
       throw new CHttpException(404, "Страница {$url} не найдена");

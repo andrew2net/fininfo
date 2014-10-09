@@ -6,6 +6,19 @@
  */
 class SignupController extends Controller {
 
+  /**
+   * Declares class-based actions.
+   */
+  public function actions() {
+    return array(
+      // captcha action renders the CAPTCHA image displayed on the contact page
+      'captcha' => array(
+        'class' => 'CCaptchaAction',
+        'backColor' => 0xFFFFFF,
+      ),
+    );
+  }
+
   public function actionIndex() {
     $isAjax = Yii::app()->request->isAjaxRequest;
 

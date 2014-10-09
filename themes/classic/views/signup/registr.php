@@ -3,7 +3,7 @@
 /* @var $user Registration */
 /* @var $profile Profile */
 
-$this->pageTitle = Yii::app()->name . '- Registration';
+$this->pageTitle = Yii::app()->name . ' - Registration';
 ?>
 <div id="content">
   <?php $this->renderPartial('/site/_newsBlock'); ?>

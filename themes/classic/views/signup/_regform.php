@@ -15,8 +15,8 @@
     <div id="reg-close" style="position: absolute; top: 0; right: 0; cursor: pointer;
          background: url(<?php echo Yii::app()->theme->baseUrl; ?>/img/cross.png);
          width: 16px;height: 16px"></div>
-  <?php endif ?>
-  <div class="bold" style="font-size: 14pt;margin: 0 5px 10px">Registration</div>
+       <?php endif ?>
+  <h1>Registration</h1>
   <div>
     <div><?php echo $form->labelEx($user, 'username'); ?></div>
     <div><?php echo $form->textField($user, 'username', array('style' => 'width: 284px')); ?></div>
@@ -35,8 +35,23 @@
   <div>
     <div><?php echo $form->labelEx($user, 'verifyPassword'); ?></div>
     <div><?php echo $form->passwordField($user, 'verifyPassword', array('style' => 'width: 284px')); ?></div>
-    <div style="height: 16px"><?php echo $form->error($user, 'verifyPassword'); ?></div>
+    <div style="height: 16px; margin-bottom: 10px"><?php echo $form->error($user, 'verifyPassword'); ?></div>
   </div>
+  <?php if (!Yii::app()->request->isAjaxRequest) : ?>
+    <div>
+      <div><?php echo $form->labelEx($user, 'verifyCode'); ?></div>
+      <div><?php
+        $this->widget('CCaptcha', array('buttonOptions' => array(
+            'style' => 'margin:0 10px;vertical-align:bottom;line-height:50px',
+        )));
+        ?>
+      </div>
+      <div style="margin-top: 5px"><?php echo $form->textField($user, 'verifyCode'); ?></div>
+      <div class="hint">Please enter the letters as they are shown in the image above.
+        <br/>Letters are not case-sensitive.</div>
+      <div style="height: 16px"><?php echo $form->error($user, 'verifyCode'); ?></div>
+    </div>
+    <?php endif; ?>
   <div><?php
     echo CHtml::submitButton('Sign up', //'', array('update' => '#registr-dialog > div'),
         array(
@@ -45,6 +60,6 @@
       'style' => 'float:right',
     ));
     ?></div>
-  <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
 </div>

@@ -21,6 +21,7 @@
         break;
       case 'close':
         regform.hide();
+        window.location = window.document.URL;
         break;
       case 'redirect':
         window.location = data.url;

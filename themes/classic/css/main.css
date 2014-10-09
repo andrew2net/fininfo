@@ -7,7 +7,7 @@ body
   background: #656565;
 }
 
-.orange, #mainmenu ul li.active a, .menu li.active a, div.breadcrumbs span{
+.orange, #mainmenu ul li.active a, .menu li.active a, div.breadcrumbs span, h1{
   color: #fa6126;
 }
 .beige, body, div.breadcrumbs a{
@@ -127,7 +127,7 @@ body
   left: 0;
   right: 0;
   width: 340px;
-  height: 300px;
+  height: 320px;
   border: 1px solid;
   border-radius: 5px;
   padding: 20px 0;
