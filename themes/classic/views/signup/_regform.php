@@ -57,7 +57,7 @@
         array(
       'id' => 'reg-submit',
       'class' => 'button',
-      'style' => 'float:right',
+      'style' => 'margin-left:220px',
     ));
     ?></div>
 <?php $this->endWidget(); ?>

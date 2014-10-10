@@ -1,4 +1,4 @@
-<div id="news-block">
+<div id="left-column">
   <div class="bold" style="margin: 5px; font-size: 12pt">News</div>
   <?php
   $this->widget('zii.widgets.CListView', array(

@@ -10,9 +10,9 @@ $this->breadcrumbs = array(
 ?>
 
 <div id="content">
-  <?php $this->renderPartial('_rightColumn'); ?>
   <?php $this->renderPartial('_newsBlock'); ?>
   <div style="padding: 0 20px;">
     <?php echo $model->content; ?>
   </div>
+  <?php $this->renderPartial('_rightColumn'); ?>
 </div>

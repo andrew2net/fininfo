@@ -9,9 +9,8 @@ $this->breadcrumbs = array(
 );
 ?>
 <div id="content">
-  <?php $this->renderPartial('_rightColumn'); ?>
   <?php $this->renderPartial('_newsBlock'); ?>
-  <div style="margin: 0 20px">
+  <div style="padding: 0 20px">
     <h1>Login</h1>
 
     <p>Please fill out the following form with your login credentials:</p>
@@ -54,4 +53,5 @@ $this->breadcrumbs = array(
       <?php $this->endWidget(); ?>
     </div><!-- form -->
   </div>
+  <?php $this->renderPartial('_rightColumn'); ?>
 </div>

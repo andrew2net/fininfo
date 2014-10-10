@@ -1,9 +1,3 @@
-#news-block{
-  background: #8D8D8D;
-  padding: 20px 15px;
-  width: 200px;
-  height: 515px;
-}
 #newsListView a:hover{
   color: #656565;
 }

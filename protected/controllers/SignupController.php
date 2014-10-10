@@ -27,27 +27,64 @@ class SignupController extends Controller {
         echo json_encode(array('result' => 'close'));
         Yii::app()->end();
       }
-      else
-        $this->redirect('/');
+      $this->redirect('/');
     }
 
-    $user = new Registration;
+    $model = new Registration;
     $profile = new Profile;
+    $profile->regMode = true;
 
     if (isset($_POST['Registration'])) {
-      $user->attributes = $_POST['Registration'];
-      $user->validate();
+      $model->attributes = $_POST['Registration'];
+      if ($model->validate()) {
+        $soucePassword = $model->password;
+        $model->activkey = UserModule::encrypting(microtime() . $model->password);
+        $model->password = UserModule::encrypting($model->password);
+        $model->verifyPassword = UserModule::encrypting($model->verifyPassword);
+        $model->superuser = 0;
+        $model->status = User::STATUS_ACTIVE;
+        $model->lastvisit = time();
+        if ($model->save()) {
+          Yii::app()->getAuthManager()->assign('Authenticated', $model->id);
+          
+          $profile->user_id = $model->id;
+          $profile->save();
+          $identity = new UserIdentity($model->username, $soucePassword);
+          if ($identity->authenticate())
+            Yii::app()->user->login($identity);
+
+          $message = new Message;
+          $message->uid = $model->id;
+          $message->type_id = Message::TYPE_REGISTRATION;
+          $message->transport_id = Message::TRANSPORT_EMAIL;
+          $message->save();
+
+          $message = new Message;
+          $message->uid = $model->id;
+          $message->type_id = Message::TYPE_CONFIRM_EMAIL_PHONE;
+          $message->transport_id = Message::TRANSPORT_EMAIL;
+          $message->save();
+
+          if ($isAjax) {
+            echo json_encode(array(
+              'result' => 'redirect',
+              'url' => $this->createAbsoluteUrl('/private'),
+            ));
+            Yii::app()->end();
+          }
+          $this->redirect('/private');
+        }
+      }
     }
 
     if ($isAjax) {
       echo json_encode(array(
         'result' => 'form',
-        'form' => $this->renderPartial('_regform', array('user' => $user, 'profile' => $profile), TRUE),
+        'form' => $this->renderPartial('_regform', array('user' => $model, 'profile' => $profile), TRUE),
       ));
       Yii::app()->end();
     }
-    else
-      $this->render('registr', array('user' => $user, 'profile' => $profile));
+    $this->render('registr', array('user' => $model, 'profile' => $profile));
   }
 
 }

@@ -2,16 +2,25 @@ body
 {
   margin: 0;
   padding: 0;
-  /*color: #555;*/
   font: normal 10pt Arial,Helvetica,sans-serif;
-  background: #656565;
 }
 
 .orange, #mainmenu ul li.active a, .menu li.active a, div.breadcrumbs span, h1{
   color: #fa6126;
 }
-.beige, body, div.breadcrumbs a{
+.gray, #mainmenu ul li a:hover, .menu li a:hover, .left-menu-item > a:hover,
+#left-column > ul > li.active > a{
+  color: #656565;
+}
+.beige, body, div.breadcrumbs a, #mainmenu ul li a, .menu li a, .button{
   color: oldlace;
+}
+
+.back-gray, body{
+  background: #656565;
+}
+.back-beige, .left-menu-item > a:hover, #mainmenu ul li a:hover, .menu li a:hover{
+  background: oldlace;
 }
 
 #page
@@ -34,9 +43,11 @@ body
 
 #content
 {
+  display: table;
+  width: 100%;
 }
 #content > div{
-  display: inline-block;
+  display: table-cell;
   vertical-align: top;
 }
 
@@ -80,8 +91,6 @@ body
 
 #mainmenu ul li a, .menu li a
 {
-  color:oldlace;
-  background-color:transparent;
   font-size:12px;
   font-weight:bold;
   text-decoration:none;
@@ -90,22 +99,29 @@ body
 
 #mainmenu ul li a:hover, .menu li a:hover
 {
-  background-color:oldlace;
-  color: #656565;
   text-decoration:none;
 }
 .menu{
   padding: 0;
 }
+#left-column{
+  background: #8D8D8D;
+  padding: 20px 15px;
+  width: 20%;
+  height: 515px;
+}
 
 #right-column{
-  float: right;
-  width: 205px;
+  /*float: right;*/
+  width: 19%;
 }
 
 #signal-block, #registr-block{
   background: #B06E54;
   padding: 20px 15px;
+}
+#registr-block{
+  text-align: center;
 }
 
 #registr-dialog{
@@ -138,6 +154,15 @@ body
   margin: 5px;
 }
 
+.left-menu-item > a{
+  text-decoration: none;
+  padding: 5px;
+  display: block;
+  font-size: 12pt;
+}
+#left-column > ul > li.active > a{
+  background: #BDB9B1;
+}
 div.flash-error, div.flash-notice, div.flash-success
 {
   padding:.8em;
@@ -219,14 +244,11 @@ div.search-form
 }
 
 .button{
-/*  display: block;
-  text-decoration: none;*/
   padding: 5px;
   margin: 5px;
   background: #CB5C31;
   cursor: pointer;
   border: none; 
-  color: oldlace;
 }
 .button:hover{
   background: #FA6126;
@@ -239,7 +261,3 @@ div.search-form
 .errorMessage{
   color: yellow;
 }
-/*input.error{
-  border: 1px solid red;
-  border-radius: 4px;
-}*/

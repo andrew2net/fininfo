@@ -5,7 +5,7 @@
     'id' => 'signalListView',
     'dataProvider' => new CActiveDataProvider('Signal', array(
       'criteria' => array('condition' => 'DATE(sigdate)=(SELECT DATE(MAX(sigdate)) FROM {{signal}})'))),
-    'itemView' => '_signalItem',
+    'itemView' => '/site/_signalItem',
     'template' => '{items}',
     'cssFile' => Yii::app()->theme->baseUrl . '/css/signalListView.css',
   ));

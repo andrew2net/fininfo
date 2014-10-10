@@ -1,6 +1,6 @@
 <div id="registr-block">
   <?php
-  echo CHtml::link('Open Account Now!', '/signup', array(
+  echo CHtml::link('Subscribe now!', '/signup', array(
     'id' => 'registr-link',
     'class' => 'bold',
     'style' => 'font-size:14pt;text-decoration:none',

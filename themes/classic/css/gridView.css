@@ -1,0 +1,7 @@
+div.grid-view{
+  margin: 0 10px;
+}
+
+div.grid-view thead th{
+  background: #8D8D8D;
+}
