@@ -72,13 +72,13 @@ class PayController extends Controller {
     if (!$order)
       Yii::app()->end('404');
 
-    $uid = Yii::app()->user->id;
+    $uid = $order->uid;
     $profile = Profile::model()->findByPk($uid);
     if (is_null($profile)) {
       $profile = new Profile;
       $profile->user_id = $uid;
     }
-    Yii::trace($profile->user_id, 'pay_notify');
+    Yii::trace('uid' . $profile->user_id, 'pay_notify');
     $profile->mobile_phone = $_POST['sender_phone'];
     $profile->save();
     Yii::trace('after phone', 'pay_notify');
