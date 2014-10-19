@@ -1,28 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "{{subscription}}".
+ * This is the model class for table "{{invoice_subscription}}".
  *
- * The followings are the available columns in table '{{subscription}}':
- * @property string $id
- * @property integer $uid
+ * The followings are the available columns in table '{{invoice_subscription}}':
+ * @property string $invoice_id
  * @property string $subscription_type_id
  * @property string $start
- * @property string $end
+ * @property integer $months
+ * @property string $price
+ * @property string $autorenew 
+ * @property string $end 
  *
  * The followings are the available model relations:
  * @property SubscriptionType $subscriptionType
- * @property Users $user
+ * @property Invoice $invoice 
  */
-class Subscription extends CActiveRecord {
+class InvoiceSubscription extends CActiveRecord {
 
-  public $userName, $subscriptionTypeName;
+  public $subscriptionTypeName;
 
   /**
    * @return string the associated database table name
    */
   public function tableName() {
-    return '{{subscription}}';
+    return '{{invoice_subscription}}';
   }
 
   /**
@@ -32,13 +34,17 @@ class Subscription extends CActiveRecord {
     // NOTE: you should only define rules for those attributes that
     // will receive user inputs.
     return array(
-      array('uid, subscription_type_id', 'required'),
-      array('uid', 'numerical', 'integerOnly' => true),
+      array('subscription_type_id, price', 'required'),
+      array('months', 'default', 'value' => 0),
+      array('months', 'numerical', 'integerOnly' => true),
+      array('autorenew', 'boolean'),
+      array('invoice_id', 'length', 'max' => 11),
       array('subscription_type_id', 'length', 'max' => 4),
-      array('start, end', 'safe'),
+      array('price', 'length', 'max' => 10),
+      array('start, end', 'date', 'format' => 'yyyy-MM-dd'),
       // The following rule is used by search().
       // @todo Please remove those attributes that should not be searched.
-      array('userName, uid, subscriptionTypeName, start, end', 'safe', 'on' => 'search'),
+      array('invoice_id, subscription_type_id, start, price', 'safe', 'on' => 'search'),
     );
   }
 
@@ -50,7 +56,7 @@ class Subscription extends CActiveRecord {
     // class name for the relations automatically generated below.
     return array(
       'subscriptionType' => array(self::BELONGS_TO, 'SubscriptionType', 'subscription_type_id'),
-      'user' => array(self::BELONGS_TO, 'User', 'uid'),
+      'invoice' => array(self::BELONGS_TO, 'Invoice', 'invoice_id'),
     );
   }
 
@@ -59,11 +65,13 @@ class Subscription extends CActiveRecord {
    */
   public function attributeLabels() {
     return array(
-      'id' => 'ID',
-      'uid' => 'Subscriber',
+      'invoice_id' => 'Invoice',
       'subscription_type_id' => 'Subscription type',
-      'start' => 'Start date',
-      'end' => 'End date',
+      'start' => 'Start',
+      'end' => 'End',
+      'months' => 'Months',
+      'price' => 'Price $',
+      'autorenew' => 'Auto-renewal'
     );
   }
 
@@ -84,22 +92,18 @@ class Subscription extends CActiveRecord {
 
     $criteria = new CDbCriteria;
 
-    $criteria->with = array('user', 'subscriptionType');
+    $criteria->with = array('subscriptionType');
 
-    $criteria->compare('userName', $this->userName, true);
-    $criteria->compare('uid', $this->uid);
-    $criteria->compare('subscriptionTypeName', $this->subscriptionTypeName);
+    $criteria->compare('invoice_id', $this->invoice_id, true);
+    $criteria->compare('subscription_type_id', $this->subscription_type_id, true);
     $criteria->compare('start', $this->start, true);
-    $criteria->compare('end', $this->end, true);
+    $criteria->compare('months', $this->months);
+    $criteria->compare('t.price', $this->price, true);
 
     return new CActiveDataProvider($this, array(
       'criteria' => $criteria,
       'sort' => array(
         'attributes' => array(
-          'userName' => array(
-            'asc' => 'user.username',
-            'desc' => 'user.username DESC',
-          ),
           'subscriptionTypeName' => array(
             'asc' => 'subscriptionType.portid, subscriptionType.symid',
             'desc' => 'subscriptionType.portid DESC, subscriptionType.symid DESC',
@@ -114,10 +118,23 @@ class Subscription extends CActiveRecord {
    * Returns the static model of the specified AR class.
    * Please note that you should have this exact method in all your CActiveRecord descendants!
    * @param string $className active record class name.
-   * @return Subscription the static model class
+   * @return InvoiceSubscription the static model class
    */
   public static function model($className = __CLASS__) {
     return parent::model($className);
+  }
+
+  protected function afterConstruct() {
+    $this->autorenew = TRUE;
+    parent::afterConstruct();
+  }
+  
+  public function getStartDate($format = 'Y-m-d H:i:s'){
+    $orderDate = new DateTime($this->start);
+    $now = new DateTime;
+    if ($now > $orderDate)
+      return $now->format($format);
+    return $orderDate->format($format);
   }
 
 }

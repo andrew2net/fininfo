@@ -227,3 +227,8 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.inline-blocks > div{
+  display: inline-block;
+  margin-right: 10px;
+}

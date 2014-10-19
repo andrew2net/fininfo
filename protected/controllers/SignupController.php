@@ -68,11 +68,11 @@ class SignupController extends Controller {
           if ($isAjax) {
             echo json_encode(array(
               'result' => 'redirect',
-              'url' => $this->createAbsoluteUrl('/private'),
+              'url' => $this->createAbsoluteUrl('/private/subscribe'),
             ));
             Yii::app()->end();
           }
-          $this->redirect('/private');
+          $this->redirect('/private/subscribe');
         }
       }
     }

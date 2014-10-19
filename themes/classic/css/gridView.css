@@ -1,7 +1,11 @@
-div.grid-view{
-  margin: 0 10px;
-}
-
-div.grid-view thead th{
+div.grid-view thead th, div.grid-view tfoot td{
   background: #8D8D8D;
+}
+div.grid-view td.button-column{
+  text-align: center;
+}
+div.grid-view td.button-column > a.button{
+  text-decoration: none;
+  padding: 3px 10px;
+  border-radius: 5px;
 }

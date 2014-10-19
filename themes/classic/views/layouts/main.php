@@ -28,6 +28,7 @@
             <?php
             $pages = Page::model()->findAll(array('condition' => 'menu_show>0 AND url<>"/"', 'order' => 'menu_show'));
             $currentUrl = isset($_GET['url']) ? $_GET['url'] : '';
+            $isGuest = Yii::app()->user->isGuest;
             foreach ($pages as $page) {
               $items[] = array(
                 'label' => $page->title,
@@ -38,9 +39,11 @@
             $this->widget('zii.widgets.CMenu', array(
               'items' => array_merge($items
                   , array(
-                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => $isGuest),
                 array('label' => 'Logout (' . Yii::app()->user->name . ')'
-                  , 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest))),
+                  , 'url' => array('/site/logout'), 'visible' => !$isGuest),
+                array('label' => 'Private area', 'url' => array('/private'), 'visible' => !$isGuest && !$this instanceof PrivateController),
+              )),
             ));
             ?>
           </div><!-- mainmenu -->
@@ -56,8 +59,9 @@
             $this->widget('zii.widgets.CBreadcrumbs', array(
               'links' => $this->breadcrumbs,
             ));
-          else { ?>
-          <div style="height: 24px"></div>
+          else {
+            ?>
+            <div style="height: 24px"></div>
           <?php } ?><!-- breadcrumbs -->
           <?php echo $content; ?>
         </div>

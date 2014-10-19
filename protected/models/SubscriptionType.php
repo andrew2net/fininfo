@@ -8,10 +8,12 @@
  * @property string $portid
  * @property string $symid
  * @property string $price
+ * @property string $description 
  *
  * The followings are the available model relations:
  * @property Signal[] $signals
  * @property Subscription[] $subscriptions
+ * @property InvoiceSubscription $invoices 
  */
 class SubscriptionType extends CActiveRecord {
 
@@ -34,6 +36,7 @@ class SubscriptionType extends CActiveRecord {
       array('portid, symid, price', 'required'),
       array('portid', 'length', 'max' => 4),
       array('symid, price', 'length', 'max' => 10),
+      array('description', 'safe'),
       // The following rule is used by search().
       // @todo Please remove those attributes that should not be searched.
       array('id, portid, symid, price', 'safe', 'on' => 'search'),
@@ -49,6 +52,7 @@ class SubscriptionType extends CActiveRecord {
     return array(
       'signals' => array(self::HAS_MANY, 'Signal', 'subscription_type_id'),
       'subscriptions' => array(self::HAS_MANY, 'Subscription', 'subscription_type_id'),
+      'invoices' => array(self::HAS_MANY, 'InvoiceSubscription', 'subscription_type_id'),
     );
   }
 
@@ -60,7 +64,8 @@ class SubscriptionType extends CActiveRecord {
       'id' => 'ID',
       'portid' => 'Strategy',
       'symid' => 'Trading tool',
-      'price' => 'Subscription price',
+      'price' => 'Price $',
+      'description' => 'Description',
     );
   }
 

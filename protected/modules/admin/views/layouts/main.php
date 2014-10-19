@@ -26,6 +26,13 @@
       $this->widget('bootstrap.widgets.TbNav', array(
         'type' => TbHtml::NAV_TYPE_TABS,
         'items' => array(
+          array(
+            'label' => 'Счета',
+            'url' => '/admin/invoice',
+            'active' => $this instanceof InvoiceController,
+            'visible' => Yii::app()->user->checkAccess('admin.invoice.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
+          ),
           array('label' => 'Сигналы',
             'url' => '/admin/signal',
             'active' => $this instanceof SignalController,
@@ -43,6 +50,13 @@
             'url' => '/admin/subscriptionType',
             'active' => $this instanceof SubscriptionTypeController,
             'visible' => Yii::app()->user->checkAccess('admin.subscriptionType.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
+          ),
+          array(
+            'label' => 'Виды оплаты',
+            'url' => '/admin/payMethod',
+            'active' => $this instanceof PayMethodController,
+            'visible' => Yii::app()->user->checkAccess('admin.payMethodController.*') ||
             Yii::app()->user->checkAccess('admin.*'),
           ),
           array('label' => 'Новости',

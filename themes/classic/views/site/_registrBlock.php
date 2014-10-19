@@ -1,6 +1,7 @@
 <div id="registr-block">
   <?php
-  echo CHtml::link('Subscribe now!', '/signup', array(
+  $href = Yii::app()->user->isGuest ? '/signup' : '/private/subscribe';
+  echo CHtml::link('Subscribe now!', $href, array(
     'id' => 'registr-link',
     'class' => 'bold',
     'style' => 'font-size:14pt;text-decoration:none',
@@ -29,6 +30,8 @@
   }
 
   $('#registr-link').click(function (event) {
+    if($(this).attr('href')!='/signup')
+      return;
     event.preventDefault();
     regform.show();
     if (regfcon.html().length == 0) {

@@ -1,0 +1,35 @@
+div.subscribe-list-view{
+  display: table;
+  width: 100%;
+}
+div.subscribe-list-view > div.subscribe-list-header{
+  display: table-header-group;
+}
+div.subscribe-list-view > div.subscribe-list-header > div{
+  font-size: 11pt;
+  font-weight: bold;
+}
+div.subscribe-list-view > div.subscribe-list-header > div,
+div.subscribe-list-view > div.items > div > div{
+  display: table-cell;
+  border-bottom: 1px solid #BDB9B1;
+  padding: 10px 0;
+}
+div.subscribe-list-view > div.items{
+  display: table-row-group;
+}
+div.subscribe-list-view > div.items > div{
+  display: table-row;
+}
+div.subscribe-list-view input.date{
+  width: 75px;
+}
+div.subscribe-list-view input.months{
+  width: 40px;
+}
+div.subscribe-list-view input.button{
+  /*width: 99px;*/
+  border-radius: 5px;
+  line-height: 12px;
+  font-size: 9pt;
+}

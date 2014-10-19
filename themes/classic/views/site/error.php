@@ -8,7 +8,6 @@ $this->breadcrumbs = array(
 );
 ?>
 <div id="content">
-  <?php $this->renderPartial('_rightColumn'); ?>
   <?php $this->renderPartial('_newsBlock'); ?>
   <div>
     <h1>Error <?php echo $code; ?></h1>
@@ -16,4 +15,5 @@ $this->breadcrumbs = array(
       <?php echo CHtml::encode($message); ?>
     </div>
   </div>
+  <?php $this->renderPartial('_rightColumn'); ?>
 </div>

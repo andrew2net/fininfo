@@ -12,7 +12,7 @@ body
 #left-column > ul > li.active > a{
   color: #656565;
 }
-.beige, body, div.breadcrumbs a, #mainmenu ul li a, .menu li a, .button{
+.beige, body, div.breadcrumbs a, #mainmenu ul li a, .menu li a, .button, h2{
   color: oldlace;
 }
 
@@ -49,6 +49,9 @@ body
 #content > div{
   display: table-cell;
   vertical-align: top;
+}
+#content > div:nth-child(2){
+  padding: 0 10px;
 }
 
 #footer
@@ -243,21 +246,38 @@ div.search-form
   font-weight: bold;
 }
 
-.button{
+.button, .small-button{
   padding: 5px;
   margin: 5px;
   background: #CB5C31;
   cursor: pointer;
   border: none; 
 }
-.button:hover{
+.button:hover, .small-button:hover{
   background: #FA6126;
   color: white;
 }
-.button:active{
+.button:active, .small-button:active{
   background: #C2552C;
 }
+.small-button{
+  border-radius: 5px;
+  font-size: 8pt;
+}
+a.small-button{
+  text-decoration: none;
+  position: relative;
+  bottom: 2px;
+}
 
+.errorCont{
+  height: 25px;
+}
 .errorMessage{
   color: yellow;
+}
+
+#profile-form label{
+  display: inline-block;
+  width: 85px;
 }
