@@ -78,10 +78,9 @@ class PayController extends Controller {
       $profile = new Profile;
       $profile->user_id = $uid;
     }
-    Yii::trace('uid' . $profile->user_id, 'pay_notify');
     $profile->mobile_phone = $_POST['sender_phone'];
+    $profile->phone_confirm = true;
     $profile->save();
-    Yii::trace('after phone', 'pay_notify');
 
     $payment = Payment::model()->findByAttributes(array('operation_id' => $_POST['transaction_id']));
     if (is_null($payment)) {
