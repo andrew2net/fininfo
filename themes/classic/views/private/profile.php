@@ -50,7 +50,7 @@ $this->breadcrumbs = array(
       <?php echo $form->labelEx($profile, 'send_sms'); ?>
       <?php echo $form->checkBox($profile, 'send_sms'); ?>
     </div>
-    <div style="margin: 10px 0 0 260px">
+    <div style="margin: 10px 0 0 325px">
       <?php echo CHtml::submitButton('Save', array('class' => 'button', 'style'=>'padding:5px 10px')); ?>
     </div>
     <?php $this->endWidget(); ?>
