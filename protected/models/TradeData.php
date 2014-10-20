@@ -79,8 +79,7 @@ class TradeData extends CActiveRecord {
 
     $criteria->with = array('subscriptionType');
 
-		$criteria->compare('subscriptionTypeName',$this->subscriptionTypeName);
-//    $criteria->compare('subscription_type_id', $this->subscription_type_id, true);
+		$criteria->compare('subscription_type_id',$this->subscription_type_id);
     $criteria->compare('date', $this->date, true);
     $criteria->compare('profit', $this->profit, true);
 
@@ -88,7 +87,7 @@ class TradeData extends CActiveRecord {
       'criteria' => $criteria,
       'sort' => array(
         'attributes' => array(
-          'subscriptionTypeName' => array(
+          'subscription_type_id' => array(
             'asc' => 'subscriptionType.portid, subscriptionType.symid',
             'desc' => 'subscriptionType.portid DESC, subscriptionType.symid DESC',
           ),

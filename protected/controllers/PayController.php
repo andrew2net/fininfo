@@ -77,8 +77,10 @@ class PayController extends Controller {
       $profile = new Profile;
       $profile->user_id = $order->uid;
     }
-    $profile->mobile_phone = $_POST['sender_phone'];
-    $profile->phone_confirm = true;
+    if (empty($profile->mobile_phone)) {
+      $profile->mobile_phone = $_POST['sender_phone'];
+      $profile->phone_confirm = true;
+    }
     $profile->save();
 
     $payment = Payment::model()->findByAttributes(array('operation_id' => $_POST['transaction_id']));

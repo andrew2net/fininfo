@@ -101,7 +101,7 @@ class SiteController extends Controller {
       $url = $_GET['url'];
     else
       throw new CHttpException(404, "Страница не найдена");
-      
+
     $model = Page::model()->findByAttributes(array('url' => $url));
     if (!$model)
       throw new CHttpException(404, "Страница {$url} не найдена");
@@ -110,6 +110,39 @@ class SiteController extends Controller {
       'model' => $model,
         )
     );
+  }
+
+  public function actionGetData() {
+    $tradeData = TradeData::model()->findAll(array(
+      'select' => 'date, profit',
+      'order' => 'date',
+      'condition' => 'date>=:start AND date<=:end',
+      'params' => array(':start' => '2012-01-01', ':end' => '2012-12-31')
+    ));
+    /* @var $tradeData TradeData[] */
+    
+    $data = array(
+      'cols' => array(
+        array('type' => 'date', 'label' => 'Date'),
+        array('type' => 'number', 'label' => 'Profit')
+      ),
+      'rows' => array()
+    );
+    
+    foreach ($tradeData as $value) {
+      $date = date_parse($value->date);
+      $year = $date["year"];
+      $month = $date['month'] - 1;
+      $day =$date['day'];
+      $profit = $value->profit;
+      $data['rows'][]=array('c' => array(
+        array('v'=> "Date($year, $month, $day)"),
+        array('v' => $profit)
+        ));
+    }
+    echo json_encode($data, JSON_NUMERIC_CHECK);
+
+    Yii::app()->end();
   }
 
 }
