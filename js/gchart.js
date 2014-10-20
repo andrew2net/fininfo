@@ -9,7 +9,8 @@ function drawChart() {
   var jsonData = $.ajax({
     url: '/site/getData',
     dataType: 'json',
-    async: false
+    async: false,
+    animation: {duration: 1000, easing: 'out'}
   }).responseText;
   var data = new google.visualization.DataTable(jsonData);
   

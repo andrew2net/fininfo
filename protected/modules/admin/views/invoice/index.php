@@ -20,8 +20,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
       'filter' => CHtml::activeTextField($model, 'subscriber'),
     ),
     array(
-      'name' => 'sum',
-      'value' => '$data->sum',
+      'name' => 'sumMonth',
+      'value' => '$data->sumMonth',
       'filter' => FALSE,
     ),
     array(
