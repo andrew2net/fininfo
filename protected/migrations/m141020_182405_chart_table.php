@@ -4,7 +4,7 @@ class m141020_182405_chart_table extends CDbMigration
 {
 	public function up()
 	{
-    $this->dropTable('{{cart}}');
+//    $this->dropTable('{{cart}}');
     $this->dropTable('{{subscription}}');
     
     $this->createTable('{{chart}}', array(
