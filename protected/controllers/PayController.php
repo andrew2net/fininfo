@@ -17,60 +17,60 @@ class PayController extends Controller {
     if (isset($_POST['amount']))
       $string .= $_POST['amount'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['currency']))
       $string .= $_POST['currency'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['public_key']))
       $string .= $_POST['public_key'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['order_id']))
       $string .= $_POST['order_id'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['type']))
       $string .= $_POST['type'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['description']))
       $string .= $_POST['description'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['status']))
       $string .= $_POST['status'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['transaction_id']))
       $string .= $_POST['transaction_id'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (isset($_POST['sender_phone']))
       $string .= $_POST['sender_phone'];
     else
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     if (!isset($_POST['signature']))
-      Yii::app()->end('400');
+      throw new CHttpException('400');
 
     $sign = base64_encode(sha1($string, 1));
 
     if ($_POST['signature'] != $sign)
-      Yii::app()->end('401');
+      throw new CHttpException('401');
 
     $order = Invoice::model()->findByPk($_POST['order_id']);
     /* @var $order Invoice */
     if (!$order)
-      Yii::app()->end('404');
+      throw new CHttpException('404');
 
     $profile = Profile::model()->findByPk($order->uid);
     if (is_null($profile)) {
@@ -92,7 +92,7 @@ class PayController extends Controller {
     $payment->attributes = $_POST;
     $payment->invoice_id = $_POST['order_id'];
     if (!$payment->save())
-      Yii::app()->end('501');
+      throw new CHttpException('501');
 
     if ($order->sumFuture <= $order->paySumm) {
       foreach ($order->subscriptions as $subscription) {

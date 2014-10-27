@@ -45,6 +45,12 @@
             'visible' => Yii::app()->user->checkAccess('admin.tradeData.*') ||
             Yii::app()->user->checkAccess('admin.*')
           ),
+          array('label' => 'Графики',
+            'url' => '/admin/chart',
+            'active' => $this instanceof ChartController,
+            'visible' => Yii::app()->user->checkAccess('admin.chart.*') ||
+            Yii::app()->user->checkAccess('admin.*')
+          ),
           array(
             'label' => 'Виды подписок',
             'url' => '/admin/subscriptionType',

@@ -113,34 +113,43 @@ class SiteController extends Controller {
   }
 
   public function actionGetData() {
-    $tradeData = TradeData::model()->findAll(array(
-      'select' => 'date, profit',
-      'order' => 'date',
-      'condition' => 'date>=:start AND date<=:end',
-      'params' => array(':start' => '2012-01-01', ':end' => '2012-12-31')
-    ));
-    /* @var $tradeData TradeData[] */
-    
-    $data = array(
-      'cols' => array(
-        array('type' => 'date', 'label' => 'Date'),
-        array('type' => 'number', 'label' => 'Profit')
-      ),
-      'rows' => array()
-    );
-    
-    foreach ($tradeData as $value) {
-      $date = date_parse($value->date);
-      $year = $date["year"];
-      $month = $date['month'] - 1;
-      $day =$date['day'];
-      $profit = $value->profit;
-      $data['rows'][]=array('c' => array(
-        array('v'=> "Date($year, $month, $day)"),
-        array('v' => $profit)
+    $charts = Chart::model()->findAllByAttributes(array('active' => true));
+    /* @var $chart Chart */
+    $chartsData = array();
+    foreach ($charts as $chart) {
+      $tradeData = TradeData::model()->findAll(array(
+        'select' => 'date, profit',
+        'order' => 'date',
+        'condition' => 'date>=:start AND date<=:end',
+        'params' => array(':start' => $chart->start, ':end' => $chart->end),
+      ));
+      /* @var $tradeData TradeData[] */
+
+      $data = array(
+        'cols' => array(
+          array('type' => 'date', 'label' => 'Date'),
+          array('type' => 'number', 'label' => 'Profit')
+        ),
+        'rows' => array()
+      );
+
+      foreach ($tradeData as $value) {
+        $date = date_parse($value->date);
+        $year = $date["year"];
+        $month = $date['month'] - 1;
+        $day = $date['day'];
+        $profit = $value->profit;
+        $data['rows'][] = array('c' => array(
+            array('v' => "Date($year, $month, $day)"),
+            array('v' => $profit)
         ));
+      }
+      $chartsData[] = array(
+        'title' => $chart->subscriptionType->portid . " " . $chart->subscriptionType->symid,
+        'data' => json_encode($data, JSON_NUMERIC_CHECK),
+      );
     }
-    echo json_encode($data, JSON_NUMERIC_CHECK);
+    echo json_encode($chartsData);
 
     Yii::app()->end();
   }

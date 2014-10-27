@@ -1,19 +1,44 @@
 google.load('visualization', '1.0', {'packages': ['corechart'], 'language': 'en'});
-google.setOnLoadCallback(drawChart);
+google.setOnLoadCallback(getChartsData);
 
-function drawChart() {
+var keys;
+var chartLoc = 0;
+var chart;
+var chartsData = {};
+//var chartTimer;
+
+var drawChart = function () {
   var options = {
-    title: '20 GAZP',
-    legend: {position: 'none'}
+    title: chartsData[chartLoc]['title'],
+    legend: {position: 'none'},
+    animation: {
+      duration: 1000,
+      easing: 'out'
+    },
   };
+  chart.draw(chartsData[chartLoc]['data'], options);
+  chartLoc++;
+  if (chartLoc >= keys.length)
+    chartLoc = 0;
+}
+
+function getChartsData() {
   var jsonData = $.ajax({
     url: '/site/getData',
     dataType: 'json',
     async: false,
-    animation: {duration: 1000, easing: 'out'}
   }).responseText;
-  var data = new google.visualization.DataTable(jsonData);
-  
-  var chart = new google.visualization.LineChart(document.getElementById('chart-cont'));
-  chart.draw(data, options);
+  var charts = $.parseJSON(jsonData);
+  if (charts.length > 0) {
+    $.each(charts, function (index, value) {
+      chartsData[index] = {'title': value.title,
+        'data': new google.visualization.DataTable(value.data)};
+    });
+
+    keys = Object.keys(charts);
+    chart = new google.visualization.LineChart(document.getElementById('chart-cont'));
+    setInterval(function () {
+      drawChart();
+    }, 10000);
+  }
 }
