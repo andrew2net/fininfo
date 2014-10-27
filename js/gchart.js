@@ -5,21 +5,14 @@ var keys;
 var chartLoc = 0;
 var chart;
 var chartsData = {};
-//var chartTimer;
+var chartOptions;
 
 var drawChart = function () {
-  var options = {
-    title: chartsData[chartLoc]['title'],
-    legend: {position: 'none'},
-    animation: {
-      duration: 1000,
-      easing: 'out'
-    },
-  };
-  chart.draw(chartsData[chartLoc]['data'], options);
   chartLoc++;
   if (chartLoc >= keys.length)
     chartLoc = 0;
+  chartOptions.title = chartsData[chartLoc]['title'];
+  chart.draw(chartsData[chartLoc]['data'], chartOptions);
 }
 
 function getChartsData() {
@@ -34,11 +27,20 @@ function getChartsData() {
       chartsData[index] = {'title': value.title,
         'data': new google.visualization.DataTable(value.data)};
     });
-
     keys = Object.keys(charts);
+    chartOptions = {
+      title: chartsData[chartLoc]['title'],
+      legend: {position: 'none'},
+      animation: {
+        duration: 1000,
+        easing: 'out'
+      },
+    };
     chart = new google.visualization.LineChart(document.getElementById('chart-cont'));
-    setInterval(function () {
-      drawChart();
-    }, 10000);
+    chart.draw(chartsData[chartLoc]['data'], chartOptions);
+    if (charts.length > 1)
+      setInterval(function () {
+        drawChart();
+      }, 10000);
   }
 }
