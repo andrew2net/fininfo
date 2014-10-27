@@ -120,8 +120,8 @@ class SiteController extends Controller {
       $tradeData = TradeData::model()->findAll(array(
         'select' => 'date, profit',
         'order' => 'date',
-        'condition' => 'date>=:start AND date<=:end',
-        'params' => array(':start' => $chart->start, ':end' => $chart->end),
+        'condition' => 'date>=:start AND date<=:end AND subscription_type_id=:sbid',
+        'params' => array(':start' => $chart->start, ':end' => $chart->end, ':sbid' => $chart->subscription_type_id),
       ));
       /* @var $tradeData TradeData[] */
 
