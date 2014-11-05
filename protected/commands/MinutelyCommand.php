@@ -175,7 +175,7 @@ class MinutelyCommand extends CConsoleCommand {
         "to" => $msg->user->profile->mobile_phone,
         "text" => implode('\n', $text),
         'partner_id' => '80114',
-        'test' => 1,
+//        'test' => 1,
       ));
       $body = curl_exec($ch);
       curl_close($ch);
