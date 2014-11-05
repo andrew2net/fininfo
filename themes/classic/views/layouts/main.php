@@ -96,6 +96,6 @@
         </div><!-- footer -->
       </div>
     </div><!-- page -->
-
+    <div id="loading"><img src="/images/loading.gif"></img></div>
   </body>
 </html>

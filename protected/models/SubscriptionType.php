@@ -51,7 +51,7 @@ class SubscriptionType extends CActiveRecord {
     // class name for the relations automatically generated below.
     return array(
       'signals' => array(self::HAS_MANY, 'Signal', 'subscription_type_id'),
-      'subscriptions' => array(self::HAS_MANY, 'Subscription', 'subscription_type_id'),
+//      'subscriptions' => array(self::HAS_MANY, 'Subscription', 'subscription_type_id'),
       'invoices' => array(self::HAS_MANY, 'InvoiceSubscription', 'subscription_type_id'),
     );
   }

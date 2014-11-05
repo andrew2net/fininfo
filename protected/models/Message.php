@@ -14,6 +14,7 @@
  *
  * The followings are the available model relations:
  * @property Users $user
+ * @property Signal $signals 
  */
 class Message extends CActiveRecord {
 
@@ -38,7 +39,7 @@ class Message extends CActiveRecord {
     // will receive user inputs.
     return array(
       array('status_id', 'default', 'value' => 1),
-      array('made_time', 'default', 'value' => Yii::app()->dateFormatter->format('dd-MM-yyyy HH:mm:ss', time())),
+      array('made_time', 'default', 'value' => date('Y-m-d H:i:s')),
       array('uid, type_id, transport_id, status_id, made_time', 'required'),
       array('uid', 'numerical', 'integerOnly' => true),
       array('type_id, transport_id, status_id', 'length', 'max' => 1),
@@ -56,7 +57,8 @@ class Message extends CActiveRecord {
     // NOTE: you may need to adjust the relation name and the related
     // class name for the relations automatically generated below.
     return array(
-      'user' => array(self::BELONGS_TO, 'Users', 'uid'),
+      'user' => array(self::BELONGS_TO, 'User', 'uid'),
+      'signals' => array(self::MANY_MANY, 'Signal', '{{message_signal}}(message_id, signal_id)'),
     );
   }
 

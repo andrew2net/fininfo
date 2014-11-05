@@ -53,6 +53,7 @@ class Signal extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'subscriptionType' => array(self::BELONGS_TO, 'SubscriptionType', 'subscription_type_id'),
+      'messages' => array(self::MANY_MANY, 'Message', '{{message_signal}}(message_id, signal_id)'),
 		);
 	}
 

@@ -18,7 +18,7 @@
  */
 class InvoiceSubscription extends CActiveRecord {
 
-  public $subscriptionTypeName;
+  public $subscriptionTypeName, $lastDate;
 
   /**
    * @return string the associated database table name

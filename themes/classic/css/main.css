@@ -22,6 +22,9 @@ body
 .back-beige, .left-menu-item > a:hover, #mainmenu ul li a:hover, .menu li a:hover{
   background: oldlace;
 }
+.back-light-orange{
+  background: #DDA38D;
+}
 
 #page
 {
@@ -127,7 +130,7 @@ body
   text-align: center;
 }
 
-#registr-dialog{
+.dialog, #loading{
   display: none;
   position: fixed;
   width: 100%;
@@ -138,22 +141,32 @@ body
   background: rgba(100, 100, 100, 0.6);
 }
 
-#registr-dialog > div{
+.dialog > div, #loading > img{
   position: absolute;
   margin: auto;
   top: 0;
   bottom: 15%;
   left: 0;
   right: 0;
-  width: 340px;
-  height: 320px;
+}
+.dialog > div{
   border: 1px solid;
   border-radius: 5px;
   padding: 20px 0;
   background: #8C5B48;
 }
 
-#registr-form > div{
+#registr-dialog > div{
+  width: 340px;
+  height: 320px;
+}
+
+#unsubscribe-dialog > div{
+  width: 340px;
+  height: 130px;
+}
+
+.dialog form > div{
   margin: 5px;
 }
 
@@ -280,4 +293,9 @@ a.small-button{
 #profile-form label{
   display: inline-block;
   width: 85px;
+}
+#chart-cont{
+  height: 200px;
+  background: white;
+  margin-bottom: 20px;
 }

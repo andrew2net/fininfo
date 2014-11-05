@@ -105,6 +105,7 @@ class PayController extends Controller {
         $subscription->months += 1;
         $end = $start;
         $end->add(new DateInterval('P' . $subscription->months . 'M'));
+        $end->sub(new DateInterval('P1D'));
         $subscription->end = $end->format('Y-m-d');
         $subscription->save();
       }

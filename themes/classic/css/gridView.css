@@ -9,3 +9,6 @@ div.grid-view td.button-column > a.button{
   padding: 3px 10px;
   border-radius: 5px;
 }
+.subscription-invoice, .subscription-type{
+  display: none;
+}

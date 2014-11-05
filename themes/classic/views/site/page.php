@@ -1,9 +1,9 @@
 <?php
 /* @var $this PageController */
 /* @var $model Page */
-?>
 
-<?php
+$this->pageTitle = Yii::app()->name . ' - ' . $model->title;
+
 $this->breadcrumbs = array(
   $model->title,
 );

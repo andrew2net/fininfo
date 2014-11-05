@@ -51,15 +51,17 @@
         <br/>Letters are not case-sensitive.</div>
       <div style="height: 16px"><?php echo $form->error($user, 'verifyCode'); ?></div>
     </div>
-    <?php endif; ?>
-  <div><?php
+  <?php endif; ?>
+  <div>
+    <?php
     echo CHtml::submitButton('Sign up', //'', array('update' => '#registr-dialog > div'),
         array(
       'id' => 'reg-submit',
       'class' => 'button',
       'style' => 'margin-left:220px',
     ));
-    ?></div>
-<?php $this->endWidget(); ?>
+    ?>
+  </div>
+  <?php $this->endWidget(); ?>
 
 </div>

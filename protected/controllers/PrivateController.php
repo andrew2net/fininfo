@@ -14,8 +14,38 @@ class PrivateController extends Controller {
   }
 
   public function actionIndex() {
+    if (isset($_POST['inv_id']) && isset($_POST['type_id'])) {
+      /* @var $subscription InvoiceSubscription */
+      $subscription = InvoiceSubscription::model()->findByAttributes(array(
+        'invoice_id' => $_POST['inv_id'],
+        'subscription_type_id' => $_POST['type_id'],
+      ));
+      if ($subscription) {
+        Yii::import('ext.LiqPay');
+        /* @var $payMethod PayMethod */
+        $payMethod = PayMethod::model()->findByAttributes(array('active' => 1, 'type_id' => 1));
+        $liqpay = new LiqPay($payMethod->shop_id, $payMethod->sign_key);
+        $res = $liqpay->api('payment/unsubscribe', array('order_id' => $_POST['inv_id']));
 
-    $this->render('index');
+        if ($res->result == 'ok') {
+          $subscription->autorenew = FALSE;
+          $subscription->save();
+        }
+        elseif ($res->result == 'error') {
+          Yii::app()->user->setFlash('unsubscribe_error', 'An error occurred during the operation: ' . $res->description);
+        }
+
+        $this->redirect('/private/index');
+      }
+    }
+
+    $subscriptions = new CActiveDataProvider('InvoiceSubscription', array(
+      'criteria' => array(
+        'with' => array('invoice'),
+        'condition' => 'uid=:uid AND months>0',
+        'params' => array(':uid' => Yii::app()->user->id),
+    )));
+    $this->render('index', array('subscriptions' => $subscriptions));
   }
 
   public function actionOrder($id) {
@@ -37,13 +67,27 @@ class PrivateController extends Controller {
 
   public function actionSubscribe() {
     $uid = Yii::app()->user->id;
-
-    $data = SubscriptionType::model()->findAll();
-    $newSubscr = array('start' => date('Y-m-d'), 'months' => 0);
+    
+    $autorenewSubscriptionSql = Yii::app()->db->createCommand()->select('subscription_type_id')
+        ->from('{{invoice_subscription}}')->leftJoin('{{invoice}}', 'id=invoice_id')
+        ->where('uid=:uid AND autorenew=1')->getText();
+    
+    $data = SubscriptionType::model()->findAll("id NOT IN($autorenewSubscriptionSql)", array(':uid'=>$uid));
     foreach ($data as &$item) {
       /* @var $item SubscriptionType */
+      /* @var $currentSubscription InvoiceSubscription */
+      $currentSubscription = InvoiceSubscription::model()->find(array(
+        'select' => 'MAX(end) as lastDate',
+        'with' => array('invoice'),
+        'condition' => 'uid=:uid',
+        'params' => array(':uid' => $uid),
+      ));
+      $lastDate = new DateTime($currentSubscription->lastDate);
+      $lastDate->add(new DateInterval('P1D'));
+      $date = new DateTime;
       $invSubscr = new InvoiceSubscription;
-      $invSubscr->attributes = $newSubscr;
+      $invSubscr->start = $lastDate > $date ? $lastDate->format('Y-m-d') : $date->format('Y-m-d');
+      $invSubscr->months = 0;
       $subscriptions[$item->id] = array(
         'id' => $item->id,
         'portid' => $item->portid,
@@ -98,7 +142,7 @@ class PrivateController extends Controller {
     $uid = Yii::app()->user->id;
     $profile = Profile::model()->findByPk($uid);
     $user = User::model()->findByPk($uid);
-    
+
     if (isset($_POST['Profile'])) {
       $phoneConfirm = $_POST['Profile']['mobile_phone'] == $profile->mobile_phone && $profile->phone_confirm;
       $profile->attributes = $_POST['Profile'];
@@ -107,7 +151,22 @@ class PrivateController extends Controller {
         $profile->save();
       }
     }
-    $this->render('profile', array('profile' => $profile, 'user' => $user));
+    
+    $smsParams = array(
+      'api_id' => Params::getValue('SmsGateApiId'),
+      'max_price' => Params::getValue('SmsMaxPrice'),
+    );
+    $smsAvailable = CheckPhone::checkSmsCost($profile->mobile_phone, $smsParams);
+
+    $this->render('profile', array('profile' => $profile, 'user' => $user, 'smsAvailable' => $smsAvailable));
   }
 
+  public function actionGetLastSignals(){
+    if (isset($_POST['signals']))
+      $currentSignals = $_POST['signals'];
+    else 
+      $currentSignals = array();
+    
+    $this->renderPartial('/site/_signalBlock', array('currentSignals' => $currentSignals));
+  }
 }

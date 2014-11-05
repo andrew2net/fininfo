@@ -1,5 +1,5 @@
 <?php
-/* @var $data SubscriptionType */
+/* @var $data array */
 /* @var $form CActiveForm */
 ?>
 <div>
@@ -15,7 +15,7 @@
     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
       'model' => $data['invoiceSubscription'],
       'attribute' => "[{$data['id']}]start",
-      'options' => array('minDate' => 0, 'dateFormat' => 'yy-mm-dd'),
+      'options' => array('minDate' => $data['invoiceSubscription']->start, 'dateFormat' => 'yy-mm-dd'),
       'htmlOptions' => $options,
     ));
     ?>

@@ -2,6 +2,7 @@
 /* @var $this PrivateController */
 /* @var $profile Profile */
 /* @var $user User */
+/* @var $smsAvailable boolean */
 /* @var $form CActiveForm */
 
 $this->pageTitle = Yii::app()->name . ' - Profile';
@@ -28,10 +29,10 @@ $this->breadcrumbs = array(
       <?php echo $form->labelEx($user, 'email'); ?>
       <?php echo $form->textField($user, 'email'); ?>
       <?php
-      if ($user->email && $profile->email_confirm)
-        echo CHtml::tag('span', array('class' => 'orange'), 'confirmed');
-      elseif ($user->email) 
-        echo CHtml::linkButton('confirm', array('class' => 'small-button', 'url' => '#'));
+//      if ($user->email && $profile->email_confirm)
+//        echo CHtml::tag('span', array('class' => 'orange'), 'confirmed');
+//      elseif ($user->email) 
+//        echo CHtml::linkButton('confirm', array('class' => 'small-button', 'url' => '#'));
       ?>
       <div class="errorCont"><?php echo $form->error($user, 'email'); ?></div>
     </div>
@@ -39,10 +40,13 @@ $this->breadcrumbs = array(
       <?php echo $form->labelEx($profile, 'mobile_phone'); ?>
       <?php echo $form->telField($profile, 'mobile_phone', array('style' => 'width:100px')); ?>
       <?php
-      if ($profile->mobile_phone && $profile->phone_confirm)
-        echo CHtml::tag('span', array('class' => 'orange'), 'confirmed');
-      elseif ($profile->mobile_phone) 
-        echo CHtml::linkButton('confirm', array('class' => 'small-button', 'url' => '#'));
+      if (!$smsAvailable){
+        echo CHtml::tag('span', array(), 'SMS notifcation to your phone is not available!');
+      }
+//      if ($profile->mobile_phone && $profile->phone_confirm)
+//        echo CHtml::tag('span', array('class' => 'orange'), 'confirmed');
+//      elseif ($profile->mobile_phone) 
+//        echo CHtml::linkButton('confirm', array('class' => 'small-button', 'url' => '#'));
       ?>
       <div class="errorCont"><?php echo $form->error($profile, 'mobile_phone'); ?></div>
     </div>

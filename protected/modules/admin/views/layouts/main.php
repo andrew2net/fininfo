@@ -79,6 +79,13 @@
             Yii::app()->user->checkAccess('admin.*'),
           ),
           array(
+            'label' => 'Параметры',
+            'url' => '/admin/params',
+            'active' => $this instanceof ParamsController,
+            'visible' => Yii::app()->user->checkAccess('admin.params.*') ||
+            Yii::app()->user->checkAccess('admin.*'),
+          ),
+          array(
             'label' => 'Пользователи',
             'url' => '/admin/user/admin',
             'active' => $this->module instanceof UserModule,
