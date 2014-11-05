@@ -13,7 +13,7 @@ $this->pageTitle = Yii::app()->name;
   <?php $this->renderPartial('_newsBlock'); ?>
   <div>
     <div id="chart-cont"></div>
-    <div><?php echo $model->content; ?></div>
+    <div><?php echo (is_null($model) ? '' : $model->content); ?></div>
   </div>
   <?php $this->renderPartial('_rightColumn'); ?>
 </div>
