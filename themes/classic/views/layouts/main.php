@@ -90,7 +90,7 @@
             <div style="display: table-cell; width: 25%; vertical-align: top">
               <p>&copy;2014. All rights reserved.</br>
                 Site designed by<br>
-                  <a style="text-decoration-line: initial; -moz-text-decoration-line: none" href="mailto:andriano@ngs.ru?subject=Site designe">andriano@ngs.ru</a></p>
+                  <a class="devem" style="text-decoration-line: initial; -moz-text-decoration-line: none" href="#">Andriano</a></p>
             </div>
           </div>    
         </div><!-- footer -->
@@ -99,3 +99,16 @@
     <div id="loading"><img src="/images/loading.gif"></img></div>
   </body>
 </html>
+<script type="text/javascript">
+  $('.devem').click(function (event) {
+    var l = $(this);
+    if (l.attr('href') !== '#')
+      return;
+    event.preventDefault();
+    var em = 'andriano';
+    em += String.fromCharCode(64);
+    em += 'ngs.ru';
+    l.attr('href', 'mailto:' + em + '?subject=Разработка сайта');
+    l.html(em);
+  });
+</script>
