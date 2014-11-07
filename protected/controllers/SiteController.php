@@ -119,7 +119,7 @@ class SiteController extends Controller {
     foreach ($charts as $chart) {
       $data = self::getChartData($chart->subscription_type_id, $chart->start, $chart->end);
       $chartsData[] = array(
-        'title' => $chart->subscriptionType->portid . " " . $chart->subscriptionType->symid,
+        'title' => $chart->subscriptionType->portid . " " . $chart->subscriptionType->symid . ', ' .$chart->subscriptionType->description,
         'data' => json_encode($data, JSON_NUMERIC_CHECK),
       );
     }
