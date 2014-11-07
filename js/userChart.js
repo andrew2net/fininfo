@@ -1,6 +1,8 @@
 google.load('visualization', '1.0', {'packages': ['controls'], 'language': 'en'});
 google.setOnLoadCallback(createChart);
 
+var selectType = $('#subscription-type');
+var typeDescription = $('#subscription-description');
 var data;
 function getChartData(type) {
   var jsonData = $.ajax({
@@ -9,7 +11,9 @@ function getChartData(type) {
     data: {type: type},
     async: false,
   }).responseText;
-  data = new google.visualization.DataTable(jsonData);
+  var responce = $.parseJSON(jsonData);
+  typeDescription.html(responce.description);
+  data = new google.visualization.DataTable(responce.data);
 }
 
 var db;
@@ -47,7 +51,6 @@ function createDashBoard() {
   db.bind(range, chart);
 }
 
-var selectType = $('#subscription-type');
 function createChart() {
   getChartData(selectType.find('option:selected').val());
   createDashBoard();

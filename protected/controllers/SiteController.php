@@ -140,7 +140,14 @@ class SiteController extends Controller {
   public function actionGetChartData($type) {
     $data = self::getChartData($type);
 
-    echo json_encode($data, JSON_NUMERIC_CHECK);
+    /* @var $subscriptionType SubscriptionType */
+    $subscriptionType = SubscriptionType::model()->findByPk($type);
+
+    $responce = array(
+      'description' => $subscriptionType->description,
+      'data' => json_encode($data, JSON_NUMERIC_CHECK),
+    );
+    echo json_encode($responce);
     Yii::app()->end();
   }
 

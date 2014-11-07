@@ -30,6 +30,7 @@ $this->pageTitle = Yii::app()->name . ' - Chart';
           return $type->portid . ' ' . $type->symid;
         }));
     ?>
+    <span style="margin-left: 5px;" id="subscription-description"></span>
     <div id="chart-dashboard">
       <div id="chart-user"></div>
       <div style="height: 50px" id="chart-filter"></div>
