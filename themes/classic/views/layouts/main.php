@@ -35,17 +35,17 @@
                 'url' => Yii::app()->createUrl('site/page', array('url' => $page->url)),
                 'active' => $page->url == $currentUrl);
             }
+            $items[] = array('label' => 'Charts', 'url' => array('/site/chart'));
 
             $this->widget('zii.widgets.CMenu', array(
               'items' => array_merge($items
                   , array(
-                array('label' => 'Charts', 'url' => array('/site/chart')),
                 array('label' => 'Login', 'url' => array('/site/login'), 'visible' => $isGuest),
                 array(
                   'label' => 'Private area',
                   'url' => array('/private'),
                   'active' => $this instanceof PrivateController,
-                  'visible' => !$isGuest),// && !$this instanceof PrivateController),
+                  'visible' => !$isGuest), // && !$this instanceof PrivateController),
                 array('label' => 'Logout (' . Yii::app()->user->name . ')'
                   , 'url' => array('/site/logout'), 'visible' => !$isGuest),
               )),
