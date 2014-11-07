@@ -17,7 +17,7 @@ var drawChart = function () {
 
 function getChartsData() {
   var jsonData = $.ajax({
-    url: '/site/getData',
+    url: '/site/getChartsData',
     dataType: 'json',
     async: false,
   }).responseText;
@@ -35,6 +35,11 @@ function getChartsData() {
         duration: 1000,
         easing: 'out'
       },
+      'chartArea': {
+        'width': '85%',
+        'height': '75%'
+      },
+      curveType: 'function'
     };
     chart = new google.visualization.LineChart(document.getElementById('chart-cont'));
     chart.draw(chartsData[chartLoc]['data'], chartOptions);

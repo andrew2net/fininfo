@@ -294,8 +294,21 @@ a.small-button{
   display: inline-block;
   width: 85px;
 }
+
 #chart-cont{
   height: 200px;
-  background: white;
   margin-bottom: 20px;
+}
+#chart-user{
+  height: 450px;
+}
+#chart-filter{
+  height: 40px;
+  padding-bottom: 10px
+}
+#chart-cont, #chart-filter, #chart-user{
+  background: white;
+}
+#chart-dashboard{
+  margin-top: 20px;
 }

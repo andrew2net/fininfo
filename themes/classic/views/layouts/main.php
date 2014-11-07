@@ -39,10 +39,15 @@
             $this->widget('zii.widgets.CMenu', array(
               'items' => array_merge($items
                   , array(
+                array('label' => 'Charts', 'url' => array('/site/chart')),
                 array('label' => 'Login', 'url' => array('/site/login'), 'visible' => $isGuest),
+                array(
+                  'label' => 'Private area',
+                  'url' => array('/private'),
+                  'active' => $this instanceof PrivateController,
+                  'visible' => !$isGuest),// && !$this instanceof PrivateController),
                 array('label' => 'Logout (' . Yii::app()->user->name . ')'
                   , 'url' => array('/site/logout'), 'visible' => !$isGuest),
-                array('label' => 'Private area', 'url' => array('/private'), 'visible' => !$isGuest && !$this instanceof PrivateController),
               )),
             ));
             ?>

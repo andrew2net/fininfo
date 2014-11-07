@@ -26,7 +26,7 @@ class SiteController extends Controller {
    */
   public function actionIndex() {
     $model = Page::model()->findByAttributes(array('url' => '/'));
-    
+
     $this->render('index', array('model' => $model));
   }
 
@@ -112,38 +112,12 @@ class SiteController extends Controller {
     );
   }
 
-  public function actionGetData() {
+  public function actionGetChartsData() {
     $charts = Chart::model()->findAllByAttributes(array('active' => true));
     /* @var $chart Chart */
     $chartsData = array();
     foreach ($charts as $chart) {
-      $tradeData = TradeData::model()->findAll(array(
-        'select' => 'date, profit',
-        'order' => 'date',
-        'condition' => 'date>=:start AND date<=:end AND subscription_type_id=:sbid',
-        'params' => array(':start' => $chart->start, ':end' => $chart->end, ':sbid' => $chart->subscription_type_id),
-      ));
-      /* @var $tradeData TradeData[] */
-
-      $data = array(
-        'cols' => array(
-          array('type' => 'date', 'label' => 'Date'),
-          array('type' => 'number', 'label' => 'Profit')
-        ),
-        'rows' => array()
-      );
-
-      foreach ($tradeData as $value) {
-        $date = date_parse($value->date);
-        $year = $date["year"];
-        $month = $date['month'] - 1;
-        $day = $date['day'];
-        $profit = $value->profit;
-        $data['rows'][] = array('c' => array(
-            array('v' => "Date($year, $month, $day)"),
-            array('v' => $profit)
-        ));
-      }
+      $data = self::getChartData($chart->subscription_type_id, $chart->start, $chart->end);
       $chartsData[] = array(
         'title' => $chart->subscriptionType->portid . " " . $chart->subscriptionType->symid,
         'data' => json_encode($data, JSON_NUMERIC_CHECK),
@@ -154,8 +128,51 @@ class SiteController extends Controller {
     Yii::app()->end();
   }
 
-  public function actionNews($id){
+  public function actionNews($id) {
     $model = News::model()->findByPk($id);
     $this->render('news', array('model' => $model));
   }
+
+  public function actionChart() {
+    $this->render('chart');
+  }
+
+  public function actionGetChartData($type) {
+    $data = self::getChartData($type);
+
+    echo json_encode($data, JSON_NUMERIC_CHECK);
+    Yii::app()->end();
+  }
+
+  private static function getChartData($type_id, $start = null, $end = null) {
+    $tradeData = TradeData::model()->findAll(array(
+      'select' => 'date, profit',
+      'order' => 'date',
+      'condition' => '(date>=:start OR :start IS NULL) AND (date<=:end OR :end IS NULL) AND subscription_type_id=:sbid',
+      'params' => array(':start' => $start, ':end' => $end, ':sbid' => $type_id),
+    ));
+    /* @var $tradeData TradeData[] */
+
+    $data = array(
+      'cols' => array(
+        array('type' => 'date', 'label' => 'Date'),
+        array('type' => 'number', 'label' => 'Profit')
+      ),
+      'rows' => array()
+    );
+
+    foreach ($tradeData as $value) {
+      $date = date_parse($value->date);
+      $year = $date["year"];
+      $month = $date['month'] - 1;
+      $day = $date['day'];
+      $profit = $value->profit;
+      $data['rows'][] = array('c' => array(
+          array('v' => "Date($year, $month, $day)"),
+          array('v' => $profit)
+      ));
+    }
+    return $data;
+  }
+
 }
