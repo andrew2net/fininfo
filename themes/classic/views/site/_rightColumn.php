@@ -1,7 +1,7 @@
 <div id="right-column">
   <?php
   if (Yii::app()->user->isGuest) {
-    $this->renderPartial('_registrBlock');
+    $this->renderPartial('//site/_registrBlock');
   }
   else {
     $subscription = InvoiceSubscription::model()->find(array(
@@ -15,7 +15,7 @@
     if ($subscription) {
       ?>
       <div id="signal-block">
-        <?php $this->renderPartial('/site/_signalBlock'); ?>
+        <?php $this->renderPartial('//site/_signalBlock'); ?>
       </div>
       <script type="text/javascript">
         $(function () {

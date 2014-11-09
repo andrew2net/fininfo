@@ -51,6 +51,7 @@ $this->breadcrumbs = array(
       </div>
 
       <?php $this->endWidget(); ?>
+      <?php echo CHtml::link('Fogot your password?', '/user/recovery'); ?>
     </div><!-- form -->
   </div>
   <?php $this->renderPartial('_rightColumn'); ?>

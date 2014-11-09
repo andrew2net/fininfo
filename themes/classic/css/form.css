@@ -123,6 +123,7 @@ div.form .errorSummary
 	margin: 0 0 20px 0;
 	background: #FEE;
 	font-size: 0.9em;
+        color: black;
 }
 
 div.form .errorMessage
