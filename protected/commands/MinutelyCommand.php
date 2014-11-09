@@ -43,7 +43,7 @@ class MinutelyCommand extends CConsoleCommand {
                   'with' => array(
                     'signals' => array(
                       'with' => 'messages',
-                      'on' => 'DATE(signals.sigdate)>=start AND DATE(signals.sigdate)<=end',
+//                      'on' => 'DATE(signals.sigdate)>=start AND DATE(signals.sigdate)<=end',
                     ),
                   ),
                 ),
@@ -52,7 +52,7 @@ class MinutelyCommand extends CConsoleCommand {
           ),
         ),
       ),
-      'condition' => 'start<=:date AND end>=:date AND months>0 AND messages.id IS NULL',
+      'condition' => 'start<=:date AND end>=:date AND months>0 AND messages.id IS NULL AND DATE(signals.sigdate)>=start AND DATE(signals.sigdate)<=end',
       'params' => array(':date' => date('Y-m-d'),
       ),
     ));
