@@ -84,7 +84,8 @@ class MinutelyCommand extends CConsoleCommand {
               $messageSignal = new MessageSignal;
               $messageSignal->message_id = $message->id;
               $messageSignal->signal_id = $signal->id;
-              $messageSignal->save();
+              $res = $messageSignal->save();
+              Yii::trace('Signal ' . $signal->id . ' save ' . $res, 'cron_minutely');
             }
           }
         }
