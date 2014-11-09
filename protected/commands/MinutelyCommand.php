@@ -26,7 +26,7 @@ class MinutelyCommand extends CConsoleCommand {
     );
 
     self::createMessages($smsParams);
-    self::sendMessages($smsParams);
+//    self::sendMessages($smsParams);
 //    $res = self::checkSmsCost('79537658885', $smsParams);
   }
 
