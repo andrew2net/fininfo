@@ -14,6 +14,6 @@
         " " . $signal->sigdate . ' ' . $signal->recom . ' ' . number_format($signal->price, 2, '.', ' ');
         ?></p>
     <?php } ?>
-      <p><?php echo CHtml::link(Yii::app()->name, Yii::app()->createAbsoluteUrl('')); ?></p>
+    $this->renderInternal(dirname(__FILE__) . '/_footer.php');
   </body>
 </html>

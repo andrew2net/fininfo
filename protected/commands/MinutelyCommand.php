@@ -122,18 +122,18 @@ class MinutelyCommand extends CConsoleCommand {
           case Message::TYPE_SEND_SIGNAL:
             switch ($msg->transport_id) {
               case Message::TRANSPORT_EMAIL:
-                Yii::trace('Email ', 'cron_minutely');
+//                Yii::trace('Email ', 'cron_minutely');
                 $message = new YiiMailMessage;
-                Yii::trace('Email new', 'cron_minutely');
+//                Yii::trace('Email new', 'cron_minutely');
                 $message->setFrom(Yii::app()->params['infoEmail']);
                 $message->setTo(array($user->email => $user->profile->first_name . ' ' . $user->profile->last_name));
                 $message->view = 'signal';
                 $params['message'] = $msg;
                 $message->setSubject("Fin-Info signal notification");
-                Yii::trace('Email subject', 'cron_minutely');
+//                Yii::trace('Email subject', 'cron_minutely');
                 $message->setBody($params, 'text/html');
                 $n = Yii::app()->mail->send($message);
-                Yii::trace('Email sent' . $n, 'cron_minutely');
+//                Yii::trace('Email sent' . $n, 'cron_minutely');
                 if ($n) {
                   self::saveMsg($msg);
                 }
