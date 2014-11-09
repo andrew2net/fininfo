@@ -73,10 +73,14 @@ class MinutelyCommand extends CConsoleCommand {
       $message->type_id = Message::TYPE_SEND_SIGNAL;
       $message->uid = $user->id;
       if ($message->save()) {
+        Yii::trace('Save message', 'cron_minutely');
         /* @var $invoice Invoice */
         foreach ($user->invoices as $invoice) {
+          Yii::trace('Invoice ' . $invoice->id, 'cron_minutely');
           foreach ($invoice->subscriptions as $subscription) {
+            Yii::trace('Subscription ' . $subscription->subscription_type_id, 'cron_minutely');
             foreach ($subscription->subscriptionType->signals as $signal) {
+              Yii::trace('Signal ' . $signal->id, 'cron_minutely');
               $messageSignal = new MessageSignal;
               $messageSignal->message_id = $message->id;
               $messageSignal->signal_id = $signal->id;
